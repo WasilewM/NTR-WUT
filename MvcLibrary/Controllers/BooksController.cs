@@ -20,14 +20,38 @@ namespace MvcLibrary.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string bookGenre, string searchString)
         {
-              return View(await _context.Book.ToListAsync());
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from b in _context.Book
+                orderby b.Genre
+                select b.Genre;
+
+            var books = from b in _context.Book
+                select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(b => b.Genre == bookGenre);
+            }
+
+            var bookGenreVM = new BookGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Books = await books.ToListAsync()
+            };
+
+            return View(bookGenreVM);
         }
 
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
-        {
+        { 
             if (id == null || _context.Book == null)
             {
                 return NotFound();
