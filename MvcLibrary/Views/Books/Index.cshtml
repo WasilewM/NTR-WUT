@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Books[0].Genre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].Price)
+                @Html.DisplayNameFor(model => model.Books[0].PagesNumber)
             </th>
             <th></th>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Genre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.PagesNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -26,7 +26,7 @@ namespace MvcLibrary.Models
                     Title = "The Witcher Sword of Destiny",
                     ReleaseDate = DateTime.Parse("1992-01-01"),
                     Genre = "Fantasy",
-                    Price = 29
+                    PagesNumber = 384
                 },
 
                 new Book
@@ -34,7 +34,7 @@ namespace MvcLibrary.Models
                     Title = "The Witcher The Last Wish",
                     ReleaseDate = DateTime.Parse("1993-01-01"),
                     Genre = "Fantasy",
-                    Price = 39
+                    PagesNumber = 288
                 },
 
                 new Book
@@ -42,9 +42,50 @@ namespace MvcLibrary.Models
                     Title = "The Witcher Blood of Elves",
                     ReleaseDate = DateTime.Parse("1994-01-01"),
                     Genre = "Fantasy",
-                    Price = 34,
+                    PagesNumber = 320
+                },
+
+                new Book
+                {
+                    Title = "The Witcher Time of Contempt",
+                    ReleaseDate = DateTime.Parse("1995-01-01"),
+                    Genre = "Fantasy",
+                    PagesNumber = 351
+                },
+
+                new Book
+                {
+                    Title = "The Witcher Baptism of Fire",
+                    ReleaseDate = DateTime.Parse("1996-01-01"),
+                    Genre = "Fantasy",
+                    PagesNumber = 352
+                },
+
+                new Book
+                {
+                    Title = "The Witcher The Tower of the Swallow",
+                    ReleaseDate = DateTime.Parse("1997-01-01"),
+                    Genre = "Fantasy",
+                    PagesNumber = 464
+                },
+
+                new Book
+                {
+                    Title = "The Witcher The Lady of the Lake",
+                    ReleaseDate = DateTime.Parse("1999-01-01"),
+                    Genre = "Fantasy",
+                    PagesNumber = 544
+                },
+
+                new Book
+                {
+                    Title = "The Witcher Season of Storms",
+                    ReleaseDate = DateTime.Parse("2013-01-01"),
+                    Genre = "Fantasy",
+                    PagesNumber = 384
                 }
-            );
+
+                );
                 context.SaveChanges();
             }
         }
