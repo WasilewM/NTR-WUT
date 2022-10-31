@@ -12,6 +12,11 @@ namespace MvcLibrary.Models
         [Required]
         public string? Title { get; set; }
 
+        [RegularExpression(@"^[-\'A-Za-z\s]$")]
+        [StringLength(100, MinimumLength = 1)]
+        [Required]
+        public string? Author { get; set; }
+
         [Display(Name = "Publish Date")]
         [DataType(DataType.Date)]
         [Required]

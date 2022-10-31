@@ -28,6 +28,9 @@
                 @Html.DisplayNameFor(model => model.Books[0].Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Books[0].Author)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Books[0].ReleaseDate)
             </th>
             <th>
@@ -44,6 +47,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
