@@ -13,7 +13,13 @@ namespace MvcLibrary.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult MyDashboard()
         {
             return View();
         }
