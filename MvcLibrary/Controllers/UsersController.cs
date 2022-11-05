@@ -69,5 +69,36 @@ namespace MvcLibrary.Controllers
         {
           return _context.User.Any(e => e.Id == id);
         }
+
+        // GET: Users/Create
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        // POST: Users/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogIn(string FirstName, string Password)
+        {
+            var person = await _context.User
+                .FirstOrDefaultAsync(p => p.FirstName == FirstName);
+
+            if (person == null || Password != person.Password)
+            {
+                return RedirectToAction("InvalidCredentials");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult InvalidCredentials()
+        {
+            return View();
+        }
     }
 }

@@ -4,5 +4,11 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>
+        <a asp-controller="Users" asp-action="LogIn" methods="get">Log in</a>
+    </p>
+    <p>
+        <a asp-controller="Users" asp-action="Create" methods="get">Create account</a>
+    </p>
+
 </div>
