@@ -15,5 +15,7 @@ namespace MvcLibrary.Data
         }
 
         public DbSet<MvcLibrary.Models.Book> Book { get; set; } = default!;
+
+        public DbSet<MvcLibrary.Models.User> User { get; set; }
     }
 }
