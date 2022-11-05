@@ -28,9 +28,9 @@ namespace MvcLibrary.Models
         public string? Genre { get; set; }
 
         [Display(Name = "Pages Number")]
-        [Column(TypeName  = "decimal(18, 2)")]
+        [Column(TypeName  = "decimal(18, 0)")]
         [Range(1,10000)]
         [Required]
-        public decimal PagesNumber { get; set; }
+        public int PagesNumber { get; set; }
     }
 }
