@@ -54,7 +54,7 @@ namespace MvcLibrary.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Password")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -81,10 +81,10 @@ namespace MvcLibrary.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogIn(string FirstName, string Password)
+        public async Task<IActionResult> LogIn(string Username, string Password)
         {
             var person = await _context.User
-                .FirstOrDefaultAsync(p => p.FirstName == FirstName);
+                .FirstOrDefaultAsync(p => p.Username == Username);
 
             if (person == null || Password != person.Password)
             {
