@@ -26,17 +26,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Author)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].PagesNumber)
-            </th>
-
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -49,16 +38,10 @@
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PagesNumber)
-            </td>
-            <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+            <td>
+                <a asp-action="Reserve" asp-route-id="@item.Id">Reserve</a>
             </td>
         </tr>
 }

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MvcLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Content Unavailable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Content Unavailable</h1>
+You need to log in before you can reserve a book.
+
+<p>
+    <a asp-controller="Home" asp-action="Index" methods="get">Back to Main page</a>
+</p>

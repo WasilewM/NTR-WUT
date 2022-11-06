@@ -7,9 +7,7 @@ namespace MvcLibrary
     {
         [Description("Available")]
         Available,
-        [Description("Reserved")]
-        Reserved,
-        [Description("Lent")]
-        Lent
+        [Description("Unavailable")]
+        Unavailable
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using MvcLibrary.Data;
 using MvcLibrary.Models;
@@ -71,5 +72,58 @@ namespace MvcLibrary.Controllers
         {
           return _context.Book.Any(e => e.Id == id);
         }
+
+        // GET: Books/Reserve/5
+        public async Task<IActionResult> Reserve(int? id)
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return RedirectToAction("PleaseLogIn");
+            }
+
+            if (id == null || _context.Book == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Book
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            switch (book.Status)
+            {
+                case (int)BookStatusEnum.Available:
+                    book.Status = (int)BookStatusEnum.Unavailable;
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("ReservationConfirmation");
+                
+                case (int)BookStatusEnum.Unavailable:
+                    return RedirectToAction("ReservationBookUnavailable");
+                
+                default:
+                    return NotFound();
+        }
+        }
+
+        public IActionResult PleaseLogIn()
+        {
+            return View();
+        }
+
+        public IActionResult ReservationConfirmation()
+        {
+            return View();
+        }
+        
+        public IActionResult ReservationBookUnavailable()
+        {
+            return View();
+        }
+
     }
+
 }
