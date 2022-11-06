@@ -20,14 +20,6 @@ namespace MvcLibrary.Controllers
             _context = context;
         }
 
-        // GET: Users
-        public async Task<IActionResult> Index()
-        {
-            // if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
-            //     return RedirectToAction("Details", HttpContext.Session.GetInt32(SessionData.SessionKeyUserId));
-            return View(await _context.User.ToListAsync());
-        }
-
         // GET: Users/Create
         public IActionResult Create()
         {
@@ -45,7 +37,7 @@ namespace MvcLibrary.Controllers
             {
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("LogIn");
             }
             return View(user);
         }
