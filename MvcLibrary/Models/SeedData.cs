@@ -27,7 +27,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1992-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 384
+                    PagesNumber = 384,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -36,7 +37,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1993-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 288
+                    PagesNumber = 288,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -45,7 +47,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1994-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 320
+                    PagesNumber = 320,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -54,7 +57,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1995-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 351
+                    PagesNumber = 351,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -63,7 +67,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1996-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 352
+                    PagesNumber = 352,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -72,7 +77,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1997-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 464
+                    PagesNumber = 464,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -81,7 +87,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("1999-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 544
+                    PagesNumber = 544,
+                    Status = (int) BookStatusEnum.Available
                 },
 
                 new Book
@@ -90,7 +97,8 @@ namespace MvcLibrary.Models
                     Author = "Andrzej Sapkowski",
                     ReleaseDate = DateTime.Parse("2013-01-01"),
                     Genre = "Fantasy",
-                    PagesNumber = 384
+                    PagesNumber = 384,
+                    Status = (int) BookStatusEnum.Available
                 }
 
                 );

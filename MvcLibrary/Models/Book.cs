@@ -32,5 +32,9 @@ namespace MvcLibrary.Models
         [Range(1,10000)]
         [Required]
         public int PagesNumber { get; set; }
+
+        [Column(TypeName = "decimal(2,0)")]
+        [Required]
+        public int Status { get; set; }
     }
 }
