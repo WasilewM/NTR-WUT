@@ -28,24 +28,6 @@ namespace MvcLibrary.Controllers
             return View(await _context.User.ToListAsync());
         }
 
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.User == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            
-            return View(user);
-        }
-
         // GET: Users/Create
         public IActionResult Create()
         {
