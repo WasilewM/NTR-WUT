@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,9 @@ namespace MvcLibrary.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-              return View(await _context.User.ToListAsync());
+            // if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            //     return RedirectToAction("Details", HttpContext.Session.GetInt32(SessionData.SessionKeyUserId));
+            return View(await _context.User.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -39,7 +42,7 @@ namespace MvcLibrary.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(user);
         }
 
@@ -92,13 +95,31 @@ namespace MvcLibrary.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                HttpContext.Session.SetInt32(SessionData.SessionKeyUserId, person.Id);
+                return RedirectToAction("MyDashboard");
             }
         }
 
         public IActionResult InvalidCredentials()
         {
             return View();
+        }
+
+        public async Task<IActionResult> MyDashboard()
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Id == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
         }
     }
 }

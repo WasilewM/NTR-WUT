@@ -19,11 +19,6 @@ namespace MvcLibrary.Controllers
             return View();
         }
 
-        public IActionResult MyDashboard()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
