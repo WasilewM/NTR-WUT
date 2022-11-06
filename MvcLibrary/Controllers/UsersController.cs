@@ -78,7 +78,7 @@ namespace MvcLibrary.Controllers
             else
             {
                 HttpContext.Session.SetInt32(SessionData.SessionKeyUserId, person.Id);
-                return RedirectToAction("MyDashboard");
+                return RedirectToAction("MyAccount");
             }
         }
 
@@ -87,11 +87,11 @@ namespace MvcLibrary.Controllers
             return View();
         }
 
-        public async Task<IActionResult> MyDashboard()
+        public async Task<IActionResult> MyAccount()
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
-                return NotFound();
+                return RedirectToAction("PleaseLogIn");
             }
 
             var user = await _context.User
@@ -102,6 +102,17 @@ namespace MvcLibrary.Controllers
             }
 
             return View(user);
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            HttpContext.Session.Remove(SessionData.SessionKeyUserId);
+            return RedirectToAction("LogIn");
+        }
+
+        public IActionResult PleaseLogIn()
+        {
+            return View();
         }
     }
 }

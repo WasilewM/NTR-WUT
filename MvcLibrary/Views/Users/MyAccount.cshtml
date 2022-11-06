@@ -1,9 +1,13 @@
 ﻿@model MvcLibrary.Models.User
 
 @{
-    ViewData["Title"] = "MyDashboard";
+    ViewData["Title"] = "MyAccount";
 }
 <h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-controller="Users" asp-action="LogOut" methods="get">Log out</a>
+</p>
 
 <div>
     <h4>User</h4>
