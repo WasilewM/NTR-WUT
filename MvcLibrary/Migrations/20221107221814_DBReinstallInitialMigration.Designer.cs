@@ -12,8 +12,8 @@ using MvcLibrary.Data;
 namespace MvcLibrary.Migrations
 {
     [DbContext(typeof(MvcLibraryContext))]
-    [Migration("20221105115550_RemovedHelloWorldViewAndController")]
-    partial class RemovedHelloWorldViewAndController
+    [Migration("20221107221814_DBReinstallInitialMigration")]
+    partial class DBReinstallInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,10 +43,13 @@ namespace MvcLibrary.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("PagesNumber")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,0)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Status")
+                        .HasColumnType("decimal(2,0)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -56,6 +59,39 @@ namespace MvcLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("MvcLibrary.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }
