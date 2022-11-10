@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcLibrary.Data;
 
@@ -11,9 +12,10 @@ using MvcLibrary.Data;
 namespace MvcLibrary.Migrations
 {
     [DbContext(typeof(MvcLibraryContext))]
-    partial class MvcLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20221110113511_AddedReservationAttributesToBokkModel")]
+    partial class AddedReservationAttributesToBokkModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,6 +53,9 @@ namespace MvcLibrary.Migrations
 
                     b.Property<DateTime?>("ReservedUntil")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Status")
+                        .HasColumnType("decimal(2,0)");
 
                     b.Property<string>("Title")
                         .IsRequired()

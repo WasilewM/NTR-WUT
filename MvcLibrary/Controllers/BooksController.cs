@@ -93,20 +93,20 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
-            switch (book.Status)
+            if (book.ReservedUntil == null && book.LentUntil == null)
             {
-                case (int)BookStatusEnum.Available:
-                    book.Status = (int)BookStatusEnum.Unavailable;
-                    _context.Update(book);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("ReservationConfirmation");
-                
-                case (int)BookStatusEnum.Unavailable:
-                    return RedirectToAction("ReservationBookUnavailable");
-                
-                default:
-                    return NotFound();
-        }
+                book.UserId = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
+                book.ReservedUntil = DateTime.Today.AddDays(1);
+                book.LentUntil = null;
+                _context.Update(book);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ReservationConfirmation");
+            }
+            else
+            {
+                return RedirectToAction("ReservationBookUnavailable");
+            }
+
         }
 
         public IActionResult PleaseLogIn()

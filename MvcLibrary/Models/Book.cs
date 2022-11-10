@@ -33,8 +33,13 @@ namespace MvcLibrary.Models
         [Required]
         public int PagesNumber { get; set; }
 
-        [Column(TypeName = "decimal(2,0)")]
-        [Required]
-        public int Status { get; set; }
+        [ForeignKey("User")]
+        public int? UserId { get; set; }
+        
+        [DataType(DataType.Date)]
+        public DateTime? ReservedUntil { get; set; }
+        
+        [DataType(DataType.Date)]
+        public DateTime? LentUntil { get; set; }
     }
 }
