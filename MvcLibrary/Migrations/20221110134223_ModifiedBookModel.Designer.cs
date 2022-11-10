@@ -12,8 +12,8 @@ using MvcLibrary.Data;
 namespace MvcLibrary.Migrations
 {
     [DbContext(typeof(MvcLibraryContext))]
-    [Migration("20221110120038_UpdatedReservationMechnism")]
-    partial class UpdatedReservationMechnism
+    [Migration("20221110134223_ModifiedBookModel")]
+    partial class ModifiedBookModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

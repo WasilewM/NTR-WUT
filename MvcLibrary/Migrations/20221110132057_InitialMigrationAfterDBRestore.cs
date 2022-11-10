@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MvcLibrary.Migrations
 {
-    public partial class DBReinstallInitialMigration : Migration
+    public partial class InitialMigrationAfterDBRestore : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,9 @@ namespace MvcLibrary.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PagesNumber = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
-                    Status = table.Column<decimal>(type: "decimal(2,0)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    ReservedUntil = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LentUntil = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

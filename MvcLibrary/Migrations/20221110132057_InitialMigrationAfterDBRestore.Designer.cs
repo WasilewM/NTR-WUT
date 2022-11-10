@@ -12,8 +12,8 @@ using MvcLibrary.Data;
 namespace MvcLibrary.Migrations
 {
     [DbContext(typeof(MvcLibraryContext))]
-    [Migration("20221110111340_RemovedBookOrderModelAndController")]
-    partial class RemovedBookOrderModelAndController
+    [Migration("20221110132057_InitialMigrationAfterDBRestore")]
+    partial class InitialMigrationAfterDBRestore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,19 +42,25 @@ namespace MvcLibrary.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("LentUntil")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("PagesNumber")
                         .HasColumnType("decimal(18,0)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Status")
-                        .HasColumnType("decimal(2,0)");
+                    b.Property<DateTime?>("ReservedUntil")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

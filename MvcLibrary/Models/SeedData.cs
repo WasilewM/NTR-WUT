@@ -21,6 +21,8 @@ namespace MvcLibrary.Models
                 }
 
                 context.Book.AddRange(
+                // Genre: Fantasy
+                // The Wither Saga
                 new Book
                 {
                     Title = "The Witcher Sword of Destiny",
@@ -115,8 +117,118 @@ namespace MvcLibrary.Models
                     UserId = null,
                     ReservedUntil = null,
                     LentUntil = null
-                }
+                },
 
+                // The Chronicles of Narnia Saga
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Lion, The With and The Wardrobe",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1950-10-16"),
+                    Genre = "Fantasy",
+                    PagesNumber = 200,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+                
+                new Book
+                {
+                    Title = "The Chronicles of Narnia Prince Caspian",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1951-10-15"),
+                    Genre = "Fantasy",
+                    PagesNumber = 195,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Voyage of The Dawn Treader",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1952-09-15"),
+                    Genre = "Fantasy",
+                    PagesNumber = 223,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Lion, The With and The Wardrobe",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1953-09-07"),
+                    Genre = "Fantasy",
+                    PagesNumber = 217,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Horse and His Boy",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1954-09-06"),
+                    Genre = "Fantasy",
+                    PagesNumber = 199,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Magician's Nephew",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1955-05-02"),
+                    Genre = "Fantasy",
+                    PagesNumber = 183,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                new Book
+                {
+                    Title = "The Chronicles of Narnia The Last Battle",
+                    Author = "C. S. Levis",
+                    ReleaseDate = DateTime.Parse("1956-09-04"),
+                    Genre = "Fantasy",
+                    PagesNumber = 184,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+                // Genre: Education
+                new Book
+                {
+                    Title = "Clean Code",
+                    Author = "Robert C. Martin",
+                    ReleaseDate = DateTime.Parse("2009-03-01"),
+                    Genre = "Education",
+                    PagesNumber = 464,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                },
+
+
+                new Book
+                {
+                    Title = "Clean Architecture",
+                    Author = "Robert C. Martin",
+                    ReleaseDate = DateTime.Parse("2017-09-01"),
+                    Genre = "Education",
+                    PagesNumber = 432,
+                    UserId = null,
+                    ReservedUntil = null,
+                    LentUntil = null
+                }
                 );
                 context.SaveChanges();
             }
