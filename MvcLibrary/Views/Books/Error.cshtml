@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Reservation Failed";
+    ViewData["Title"] = "Error";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Reservation Failed</h1>
+<h1>@ViewData["Header"]</h1>
 
-This book is unavailable.
+@ViewData["Message"]
 
 <p>
     <a asp-controller="Home" asp-action="Index" methods="get">Back to Main page</a>

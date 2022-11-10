@@ -104,9 +104,36 @@ namespace MvcLibrary.Controllers
             }
             else
             {
-                return RedirectToAction("ReservationBookUnavailable");
+                return RedirectToAction("Error");
             }
 
+        }
+
+        // GET: Books
+        public async Task<IActionResult> BooksReservedByUser()
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return RedirectToAction("PleaseLogIn");
+            }
+
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from b in _context.Book
+                orderby b.Genre
+                select b.Genre;
+
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(s => s.UserId == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId));
+
+            var bookGenreVM = new BookGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Books = await books.ToListAsync()
+            };
+
+            return View(bookGenreVM);
         }
 
         public IActionResult PleaseLogIn()
@@ -119,8 +146,10 @@ namespace MvcLibrary.Controllers
             return View();
         }
         
-        public IActionResult ReservationBookUnavailable()
+        public IActionResult Error()
         {
+            ViewData["Header"] = "Reservation error";
+            ViewData["Message"] = "Book already is reserved or lent.";
             return View();
         }
 
