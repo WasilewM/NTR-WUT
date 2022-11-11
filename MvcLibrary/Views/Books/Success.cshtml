@@ -1,9 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Reservation Confirmed";
+    ViewData["Title"] = "Success";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Reservation Confirmed</h1>
+<h1>@ViewData["Header"]</h1>
+
+@ViewData["Message"]
 
 <p>
     <a asp-controller="Home" asp-action="Index" methods="get">Back to Main page</a>

@@ -29,7 +29,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Genre)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].ReservedUntil)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -44,10 +46,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Genre)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservedUntil)
+            </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
+            <td>
+                <a asp-action="CancelReservation" asp-route-id="@item.Id">Cancel</a>
+            </td>
+
         </tr>
 }
     </tbody>

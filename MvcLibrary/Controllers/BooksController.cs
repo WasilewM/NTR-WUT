@@ -100,13 +100,49 @@ namespace MvcLibrary.Controllers
                 book.LentUntil = null;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ReservationConfirmation");
+
+                return RedirectToAction("Success");
             }
             else
             {
                 return RedirectToAction("Error");
             }
 
+        }
+
+        public async Task<IActionResult> CancelReservation(int? id)
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return RedirectToAction("PleaseLogIn");
+            }
+
+            if (id == null || _context.Book == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Book
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            if (book.ReservedUntil != null && book.LentUntil == null)
+            {
+                book.UserId = null;
+                book.ReservedUntil = null;
+                book.LentUntil = null;
+                _context.Update(book);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Success");
+            }
+            else
+            {
+                return RedirectToAction("Error", ViewData);
+            }
         }
 
         // GET: Books
@@ -141,15 +177,17 @@ namespace MvcLibrary.Controllers
             return View();
         }
 
-        public IActionResult ReservationConfirmation()
+        public IActionResult Success()
         {
+            ViewData["Header"] = "Success";
+            ViewData["Message"] = "Operation has finished successfully.";
             return View();
         }
         
         public IActionResult Error()
         {
-            ViewData["Header"] = "Reservation error";
-            ViewData["Message"] = "Book already is reserved or lent.";
+            ViewData["Header"] = "Failure";
+            ViewData["Message"] = "Operation has failed. Please try again.";
             return View();
         }
 
