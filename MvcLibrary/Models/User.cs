@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcLibrary.Models
 {
@@ -21,5 +22,10 @@ namespace MvcLibrary.Models
         [StringLength(20, MinimumLength = 8)]
         [Required]
         public string Password { get; set; }
+
+        [Column(TypeName = "decimal(1,0)")]
+        [Range(0, 1)]
+        [Required]
+        public int IsLibrarian { get; set; } = 0;
     }
 }
