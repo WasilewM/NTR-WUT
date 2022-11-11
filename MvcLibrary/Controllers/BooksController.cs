@@ -78,7 +78,7 @@ namespace MvcLibrary.Controllers
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
-                return RedirectToAction("PleaseLogIn");
+                return RedirectToAction("PleaseLogIn", "Home");
             }
 
             if (id == null || _context.Book == null)
@@ -101,11 +101,11 @@ namespace MvcLibrary.Controllers
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success");
+                return RedirectToAction("Success", "Home");
             }
             else
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("Failure", "Home");
             }
 
         }
@@ -114,7 +114,7 @@ namespace MvcLibrary.Controllers
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
-                return RedirectToAction("PleaseLogIn");
+                return RedirectToAction("PleaseLogIn", "Home");
             }
 
             if (id == null || _context.Book == null)
@@ -137,11 +137,11 @@ namespace MvcLibrary.Controllers
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success");
+                return RedirectToAction("Success", "Home");
             }
             else
             {
-                return RedirectToAction("Error", ViewData);
+                return RedirectToAction("Failure", "Home");
             }
         }
 
@@ -150,7 +150,7 @@ namespace MvcLibrary.Controllers
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
-                return RedirectToAction("PleaseLogIn");
+                return RedirectToAction("PleaseLogIn", "Home");
             }
 
             // Use LINQ to get list of genres.
@@ -171,26 +171,6 @@ namespace MvcLibrary.Controllers
 
             return View(bookGenreVM);
         }
-
-        public IActionResult PleaseLogIn()
-        {
-            return View();
-        }
-
-        public IActionResult Success()
-        {
-            ViewData["Header"] = "Success";
-            ViewData["Message"] = "Operation has finished successfully.";
-            return View();
-        }
-        
-        public IActionResult Error()
-        {
-            ViewData["Header"] = "Failure";
-            ViewData["Message"] = "Operation has failed. Please try again.";
-            return View();
-        }
-
     }
 
 }

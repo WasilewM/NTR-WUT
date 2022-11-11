@@ -42,6 +42,57 @@ namespace MvcLibrary.Controllers
             return View(user);
         }
 
+        // GET: Users/Delete
+        public async Task<IActionResult> Delete()
+        {
+            int? id = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
+            if (id == null || _context.User == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(s => s.UserId == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId));
+
+            var Books = await books.ToListAsync();
+            if (Books.Count == 0)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("MyAccount");
+        }
+
+        // POST: Users/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed()
+        {
+            int? id = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
+            if (_context.User == null)
+            {
+                return Problem("Entity set 'MvcLibraryContext.User' is null.");
+            }
+            var user = await _context.User.FindAsync(id);
+            if (user != null)
+            {
+                _context.User.Remove(user);
+            }
+
+            await _context.SaveChangesAsync();
+            HttpContext.Session.Remove(SessionData.SessionKeyUserId);
+            return RedirectToAction("Index", controllerName:"Home");
+        }
+
         private bool UserExists(int id)
         {
           return _context.User.Any(e => e.Id == id);
@@ -83,7 +134,7 @@ namespace MvcLibrary.Controllers
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
-                return RedirectToAction("PleaseLogIn");
+                return RedirectToAction("PleaseLogIn", "Home");
             }
 
             var user = await _context.User
@@ -100,11 +151,6 @@ namespace MvcLibrary.Controllers
         {
             HttpContext.Session.Remove(SessionData.SessionKeyUserId);
             return RedirectToAction("LogIn");
-        }
-
-        public IActionResult PleaseLogIn()
-        {
-            return View();
         }
     }
 }

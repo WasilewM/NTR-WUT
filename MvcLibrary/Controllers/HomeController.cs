@@ -29,5 +29,24 @@ namespace MvcLibrary.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult PleaseLogIn()
+        {
+            return View();
+        }
+
+        public IActionResult Success()
+        {
+            ViewData["Header"] = "Success";
+            ViewData["Message"] = "Operation has finished successfully.";
+            return View();
+        }
+
+        public IActionResult Failure()
+        {
+            ViewData["Header"] = "Failure";
+            ViewData["Message"] = "Operation has failed. Please try again.";
+            return View();
+        }
     }
 }
