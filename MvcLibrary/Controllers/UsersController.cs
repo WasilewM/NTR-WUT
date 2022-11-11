@@ -118,11 +118,10 @@ namespace MvcLibrary.Controllers
             {
                 return RedirectToAction("InvalidCredentials");
             }
-            else
-            {
-                HttpContext.Session.SetInt32(SessionData.SessionKeyUserId, person.Id);
-                return RedirectToAction("MyAccount");
-            }
+            
+            HttpContext.Session.SetInt32(SessionData.SessionKeyUserId, person.Id);
+            HttpContext.Session.SetInt32(SessionData.SessionKeyIsLibrarian, person.IsLibrarian);
+            return RedirectToAction("MyAccount");
         }
 
         public IActionResult InvalidCredentials()
@@ -150,6 +149,7 @@ namespace MvcLibrary.Controllers
         public async Task<IActionResult> LogOut()
         {
             HttpContext.Session.Remove(SessionData.SessionKeyUserId);
+            HttpContext.Session.Remove(SessionData.SessionKeyIsLibrarian);
             return RedirectToAction("LogIn");
         }
     }
