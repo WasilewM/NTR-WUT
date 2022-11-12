@@ -295,6 +295,44 @@ namespace MvcLibrary.Controllers
 
             return RedirectToAction("Failure", "Home");
         }
+
+        public async Task<IActionResult> AcceptReturn(int? id)
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return RedirectToAction("PleaseLogIn", "Home");
+            }
+
+            if (HttpContext.Session.GetInt32(SessionData.SessionKeyIsLibrarian) == 0)
+            {
+                return RedirectToAction("Failure", "Home");
+            }
+
+            if (id == null || _context.Book == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Book
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            if (book.ReservedUntil == null && book.LentUntil != null)
+            {
+                book.UserId = null;
+                book.ReservedUntil = null;
+                book.LentUntil = null; ;
+                _context.Update(book);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Success", "Home");
+            }
+
+            return RedirectToAction("Failure", "Home");
+        }
     }
 
 }
