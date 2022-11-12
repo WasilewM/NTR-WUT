@@ -4,10 +4,10 @@
 }
 
 <h1>Content Unavailable</h1>
-To see this content please log in first.
+To see this content please <a asp-controller="Users" asp-action="LogIn" methods="get">Log in</a> first.
 
 <p>
-    <a asp-controller="Users" asp-action="LogIn" methods="get">Log in</a>
+    Don't have your account yet? You can create one <a asp-controller="Users" asp-action="Create" methods="get">here</a>.
 </p>
 <p>
     <a asp-controller="Home" asp-action="Index" methods="get">Back to Main page</a>

@@ -229,7 +229,7 @@ namespace MvcLibrary.Controllers
             if (book.ReservedUntil != null && book.LentUntil == null)
             {
                 book.ReservedUntil = null;
-                book.LentUntil = DateTime.Today.AddDays(1); ;
+                book.LentUntil = DateTime.Today.AddDays(30); ;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 

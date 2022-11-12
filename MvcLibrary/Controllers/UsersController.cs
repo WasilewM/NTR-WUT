@@ -82,7 +82,7 @@ namespace MvcLibrary.Controllers
                 return View(user);
             }
 
-            return RedirectToAction("MyAccount");
+            return RedirectToAction("ErrorDeleteUserAccountWithBooks");
         }
 
         // POST: Users/Delete
@@ -184,6 +184,13 @@ namespace MvcLibrary.Controllers
                 "Librarian account cannot be deleted.");
             return View("Message", info);
         }
+        public IActionResult ErrorDeleteUserAccountWithBooks()
+        {
+            Message info = new Message("Error", "Cannot delete your account", 
+                "You cannot delete your account until you return all your books and cancel all book reservations.");
+            return View("Message", info);
+        }
+        
         public IActionResult ErrorInvalidCredentials()
         {
             Message info = new Message("Error", "Invalid Credentials", 
