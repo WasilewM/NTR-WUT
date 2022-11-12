@@ -83,7 +83,7 @@ namespace MvcLibrary.Controllers
 
             if (HttpContext.Session.GetInt32(SessionData.SessionKeyIsLibrarian) == 1)
             {
-                return RedirectToAction("Failure", "Home");
+                return RedirectToAction("ErrorLibrarianBookReservation");
             }
 
             if (id == null || _context.Book == null)
@@ -109,7 +109,7 @@ namespace MvcLibrary.Controllers
                 return RedirectToAction("Success", "Home");
             }
             
-            return RedirectToAction("Failure", "Home");
+            return RedirectToAction("ErrorBookUnavailable");
         }
 
         public async Task<IActionResult> BookReservations()
@@ -178,7 +178,7 @@ namespace MvcLibrary.Controllers
                 return RedirectToAction("Success", "Home");
             }
 
-            return RedirectToAction("Failure", "Home");
+            return RedirectToAction("ErrorSomethingWentWrong");
         }
 
         public async Task<IActionResult> BookReservationsLibrarian()
@@ -211,7 +211,7 @@ namespace MvcLibrary.Controllers
 
             if (HttpContext.Session.GetInt32(SessionData.SessionKeyIsLibrarian) == 0)
             {
-                return RedirectToAction("Failure", "Home");
+                return RedirectToAction("ErrorNotLibrarianLend");
             }
 
             if (id == null || _context.Book == null)
@@ -236,7 +236,7 @@ namespace MvcLibrary.Controllers
                 return RedirectToAction("Success", "Home");
             }
 
-            return RedirectToAction("Failure", "Home");
+            return RedirectToAction("ErrorSomethingWentWrong");
         }
 
         public async Task<IActionResult> BookRentals()
@@ -305,7 +305,7 @@ namespace MvcLibrary.Controllers
 
             if (HttpContext.Session.GetInt32(SessionData.SessionKeyIsLibrarian) == 0)
             {
-                return RedirectToAction("Failure", "Home");
+                return RedirectToAction("ErrorNotLibrarianAcceptReturn");
             }
 
             if (id == null || _context.Book == null)
@@ -331,7 +331,42 @@ namespace MvcLibrary.Controllers
                 return RedirectToAction("Success", "Home");
             }
 
-            return RedirectToAction("Failure", "Home");
+            return RedirectToAction("ErrorSomethingWentWrong");
+        }
+
+        // Messages
+        public IActionResult ErrorLibrarianBookReservation()
+        {
+            Message info = new Message("Error", "Cannot reserve the book", 
+                "Librarian cannot reserve books.");
+            return View("Message", info);
+        }
+        public IActionResult ErrorBookUnavailable()
+        {
+            Message info = new Message("Error", "Cannot reserve the book", 
+                "Chosen book has already been reserved or rented by you or by some other user.");
+            return View("Message", info);
+        }
+
+        public IActionResult ErrorSomethingWentWrong()
+        {
+            Message info = new Message("Error", "Cannot proceed chosen action", 
+                "Something went wrong");
+            return View("Message", info);
+        }
+
+        public IActionResult ErrorNotLibrarianLend()
+        {
+            Message info = new Message("Error", "Cannot lend the book", 
+                "Only Librarian can lend a book to a User.");
+            return View("Message", info);
+        }
+
+        public IActionResult ErrorNotLibrarianAcceptReturn()
+        {
+            Message info = new Message("Error", "Cannot lend the book", 
+                "Only Librarian can accept a return of a book.");
+            return View("Message", info);
         }
     }
 

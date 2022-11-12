@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using MvcLibrary.Data;
 using MvcLibrary.Models;
 
@@ -37,7 +38,7 @@ namespace MvcLibrary.Controllers
                 .FirstOrDefaultAsync(m => m.Username == user.Username);
             if (potential_conflict_user != null)
             {
-                return RedirectToAction("Failure", "Home");
+                return RedirectToAction("ErrorUsernameOccupied");
             }
 
             if (ModelState.IsValid)
@@ -67,7 +68,7 @@ namespace MvcLibrary.Controllers
 
             if (user.IsLibrarian == 1)
             {
-                return RedirectToAction("Failure", "Home");
+                return RedirectToAction("ErrorDeleteLibrarianAccount");
             }
 
             var books = from b in _context.Book
@@ -128,17 +129,12 @@ namespace MvcLibrary.Controllers
 
             if (person == null || Password != person.Password)
             {
-                return RedirectToAction("InvalidCredentials");
+                return RedirectToAction("ErrorInvalidCredentials");
             }
             
             HttpContext.Session.SetInt32(SessionData.SessionKeyUserId, person.Id);
             HttpContext.Session.SetInt32(SessionData.SessionKeyIsLibrarian, person.IsLibrarian);
             return RedirectToAction("MyAccount");
-        }
-
-        public IActionResult InvalidCredentials()
-        {
-            return View();
         }
 
         public async Task<IActionResult> MyAccount()
@@ -174,5 +170,27 @@ namespace MvcLibrary.Controllers
 
             return true;
         }
+
+        // Messages
+        public IActionResult ErrorUsernameOccupied()
+        {
+            Message info = new Message("Error", "Cannot create an account", 
+                "Chosen username is occupied.");
+            return View("Message", info);
+        }
+        public IActionResult ErrorDeleteLibrarianAccount()
+        {
+            Message info = new Message("Error", "Cannot delete your account", 
+                "Librarian account cannot be deleted.");
+            return View("Message", info);
+        }
+        public IActionResult ErrorInvalidCredentials()
+        {
+            Message info = new Message("Error", "Invalid Credentials", 
+                "Invalid username or password. Please try again.");
+            return View("Message", info);
+        }
+
+
     }
 }
