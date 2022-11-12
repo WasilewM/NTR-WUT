@@ -202,6 +202,63 @@ namespace MvcLibrary.Controllers
             return View(bookGenreVM);
         }
 
+        public async Task<IActionResult> BookRentals()
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return RedirectToAction("PleaseLogIn", "Home");
+            }
+
+            if (HttpContext.Session.GetInt32(SessionData.SessionKeyIsLibrarian) == 0)
+            {
+                return RedirectToAction("BookRentalsUser");
+            }
+
+            return RedirectToAction("BookRentalsLibrarian");
+        }
+
+        public async Task<IActionResult> BookRentalsUser()
+        {
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from b in _context.Book
+                orderby b.Genre
+                select b.Genre;
+
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(s => s.UserId == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId) && s.ReservedUntil == null && s.LentUntil != null);
+
+            var bookGenreVM = new BookGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Books = await books.ToListAsync()
+            };
+
+            return View(bookGenreVM);
+        }
+
+        public async Task<IActionResult> BookRentalsLibrarian()
+        {
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from b in _context.Book
+                orderby b.Genre
+                select b.Genre;
+
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(s => s.UserId != null && s.ReservedUntil == null && s.LentUntil != null);
+
+            var bookGenreVM = new BookGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Books = await books.ToListAsync()
+            };
+
+            return View(bookGenreVM);
+        }
+
         public async Task<IActionResult> Lend(int? id)
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
