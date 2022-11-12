@@ -33,6 +33,13 @@ namespace MvcLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Password,IsLibrarian")] User user)
         {
+            var potential_conflict_user = await _context.User
+                .FirstOrDefaultAsync(m => m.Username == user.Username);
+            if (potential_conflict_user != null)
+            {
+                return RedirectToAction("Failure", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
