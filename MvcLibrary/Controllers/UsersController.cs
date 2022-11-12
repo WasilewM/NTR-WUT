@@ -58,6 +58,11 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
+            if (user.IsLibrarian == 1)
+            {
+                return RedirectToAction("Failure", "Home");
+            }
+
             var books = from b in _context.Book
                 select b;
 
@@ -131,7 +136,7 @@ namespace MvcLibrary.Controllers
 
         public async Task<IActionResult> MyAccount()
         {
-            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            if (!IsUserLoggedIn())
             {
                 return RedirectToAction("PleaseLogIn", "Home");
             }
@@ -151,6 +156,16 @@ namespace MvcLibrary.Controllers
             HttpContext.Session.Remove(SessionData.SessionKeyUserId);
             HttpContext.Session.Remove(SessionData.SessionKeyIsLibrarian);
             return RedirectToAction("LogIn");
+        }
+
+        public bool IsUserLoggedIn()
+        {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

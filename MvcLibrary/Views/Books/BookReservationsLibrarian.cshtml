@@ -30,8 +30,13 @@
                 @Html.DisplayNameFor(model => model.Books[0].Genre)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Books[0].UserId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Books[0].ReservedUntil)
             </th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -46,6 +51,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Genre)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.ReservedUntil)
             </td>
