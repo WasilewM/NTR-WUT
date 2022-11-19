@@ -127,7 +127,7 @@ namespace MvcLibrary.Controllers
             return RedirectToAction("BookReservationsLibrarian");
         }
 
-        public async Task<IActionResult> BookReservationsUser()
+        public async Task<IActionResult> BookReservationsUser(string bookGenre, string searchString)
         {
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from b in _context.Book
@@ -138,6 +138,16 @@ namespace MvcLibrary.Controllers
                 select b;
 
             books = books.Where(s => s.UserId == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId) && s.ReservedUntil != null && s.LentUntil == null);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(b => b.Genre == bookGenre);
+            }
 
             var bookGenreVM = new BookGenreViewModel
             {
@@ -181,7 +191,7 @@ namespace MvcLibrary.Controllers
             return RedirectToAction("ErrorSomethingWentWrong");
         }
 
-        public async Task<IActionResult> BookReservationsLibrarian()
+        public async Task<IActionResult> BookReservationsLibrarian(string bookGenre, string searchString)
         {
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from b in _context.Book
@@ -192,6 +202,17 @@ namespace MvcLibrary.Controllers
                 select b;
 
             books = books.Where(s => s.UserId != null && s.ReservedUntil != null && s.LentUntil == null);
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(b => b.Genre == bookGenre);
+            }
 
             var bookGenreVM = new BookGenreViewModel
             {
@@ -254,7 +275,7 @@ namespace MvcLibrary.Controllers
             return RedirectToAction("BookRentalsLibrarian");
         }
 
-        public async Task<IActionResult> BookRentalsUser()
+        public async Task<IActionResult> BookRentalsUser(string bookGenre, string searchString)
         {
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from b in _context.Book
@@ -266,6 +287,16 @@ namespace MvcLibrary.Controllers
 
             books = books.Where(s => s.UserId == HttpContext.Session.GetInt32(SessionData.SessionKeyUserId) && s.ReservedUntil == null && s.LentUntil != null);
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(b => b.Genre == bookGenre);
+            }
+
             var bookGenreVM = new BookGenreViewModel
             {
                 Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
@@ -275,7 +306,7 @@ namespace MvcLibrary.Controllers
             return View(bookGenreVM);
         }
 
-        public async Task<IActionResult> BookRentalsLibrarian()
+        public async Task<IActionResult> BookRentalsLibrarian(string bookGenre, string searchString)
         {
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from b in _context.Book
@@ -286,6 +317,16 @@ namespace MvcLibrary.Controllers
                 select b;
 
             books = books.Where(s => s.UserId != null && s.ReservedUntil == null && s.LentUntil != null);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                books = books.Where(b => b.Genre == bookGenre);
+            }
 
             var bookGenreVM = new BookGenreViewModel
             {
