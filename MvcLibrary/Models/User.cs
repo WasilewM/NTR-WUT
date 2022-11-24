@@ -27,5 +27,8 @@ namespace MvcLibrary.Models
         [Range(0, 1)]
         [Required]
         public int IsLibrarian { get; set; } = 0;
+
+        [DataType(DataType.Date)]
+        public DateTime? TimeStamp { get; set; } = DateTime.Now;
     }
 }

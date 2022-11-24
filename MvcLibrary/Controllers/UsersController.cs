@@ -32,7 +32,7 @@ namespace MvcLibrary.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Password,IsLibrarian")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Password,IsLibrarian,TimeStamp")] User user)
         {
             var potential_conflict_user = await _context.User
                 .FirstOrDefaultAsync(m => m.Username == user.Username);
