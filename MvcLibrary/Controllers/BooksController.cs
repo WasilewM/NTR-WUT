@@ -103,6 +103,7 @@ namespace MvcLibrary.Controllers
                 book.UserId = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
                 book.ReservedUntil = DateTime.Today.AddDays(1);
                 book.LentUntil = null;
+                book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
@@ -182,6 +183,7 @@ namespace MvcLibrary.Controllers
                 book.UserId = null;
                 book.ReservedUntil = null;
                 book.LentUntil = null;
+                book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
@@ -250,7 +252,8 @@ namespace MvcLibrary.Controllers
             if (book.ReservedUntil != null && book.LentUntil == null)
             {
                 book.ReservedUntil = null;
-                book.LentUntil = DateTime.Today.AddDays(30); ;
+                book.LentUntil = DateTime.Today.AddDays(30);
+                book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
@@ -365,7 +368,8 @@ namespace MvcLibrary.Controllers
             {
                 book.UserId = null;
                 book.ReservedUntil = null;
-                book.LentUntil = null; ;
+                book.LentUntil = null;
+                book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
