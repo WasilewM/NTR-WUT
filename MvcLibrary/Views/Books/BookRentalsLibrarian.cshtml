@@ -61,7 +61,12 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
             <td>
-                <a asp-action="AcceptReturn" asp-route-id="@item.Id">Accept Return</a>
+                <form asp-action="AcceptReturn" asp-route-id="@item.Id" method="post">
+                    <input type="hidden" name="timeStamp" asp-for="@item.TimeStamp" />
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Accept Return" class="btn" />
+                    </div>
+                </form>
             </td>
 
         </tr>

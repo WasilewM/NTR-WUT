@@ -55,7 +55,12 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
             <td>
-                <a asp-action="CancelReservation" asp-route-id="@item.Id">Cancel</a>
+                 <form asp-action="CancelReservation" asp-route-id="@item.Id" method="post">
+                    <input type="hidden" name="timeStamp" asp-for="@item.TimeStamp" />
+                    <div class="form-actions no-color">
+                            <input type="submit" value="Cancel" class="btn" />
+                    </div>
+                </form>
             </td>
 
         </tr>

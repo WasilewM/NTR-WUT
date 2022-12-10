@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using MvcLibrary.Data;
 using MvcLibrary.Models;
+using NuGet.Packaging.Signing;
 
 namespace MvcLibrary.Controllers
 {
@@ -173,7 +174,7 @@ namespace MvcLibrary.Controllers
             return View(bookGenreVM);
         }
 
-        public async Task<IActionResult> CancelReservation(int? id)
+        public async Task<IActionResult> CancelReservation(int? id, byte[] timeStamp)
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
@@ -192,19 +193,27 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
-            if (book.ReservedUntil != null && book.LentUntil == null)
+            try
             {
-                book.UserId = null;
-                book.ReservedUntil = null;
-                book.LentUntil = null;
-                // book.TimeStamp = DateTime.Now;
-                _context.Update(book);
-                await _context.SaveChangesAsync();
+                // This should be uncommented to prevent from modifying a book in an invalid state
+                // It has been commented out in order to allow the user to check the concurrency.
+                // if (book.ReservedUntil != null && book.LentUntil == null)
+                // {
+                    book.UserId = null;
+                    book.ReservedUntil = null;
+                    book.LentUntil = null;
+                    _context.Entry(book).Property("TimeStamp").OriginalValue = timeStamp;
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success", "Home");
+                    return RedirectToAction("Success", "Home");
+                // }
+                // return RedirectToAction("ErrorSomethingWentWrong");
             }
-
-            return RedirectToAction("ErrorSomethingWentWrong");
+            catch (DbUpdateConcurrencyException)
+            {
+                return RedirectToAction("ErrorSomethingWentWrong");
+            }
         }
 
         public async Task<IActionResult> BookReservationsLibrarian(string bookGenre, string searchString)
@@ -239,7 +248,7 @@ namespace MvcLibrary.Controllers
             return View(bookGenreVM);
         }
 
-        public async Task<IActionResult> Lend(int? id)
+        public async Task<IActionResult> Lend(int? id, byte[] timeStamp)
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
@@ -263,18 +272,27 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
-            if (book.ReservedUntil != null && book.LentUntil == null)
+            try
             {
-                book.ReservedUntil = null;
-                book.LentUntil = DateTime.Today.AddDays(30);
-                // book.TimeStamp = DateTime.Now;
-                _context.Update(book);
-                await _context.SaveChangesAsync();
+                // This should be uncommented to prevent the the rental of a book in an invalid state
+                // It has been commented out in order to allow the user to check the concurrency.
+                // if (book.ReservedUntil != null && book.LentUntil == null)
+                // {
+                    book.ReservedUntil = null;
+                    book.LentUntil = DateTime.Today.AddDays(30);
+                    _context.Entry(book).Property("TimeStamp").OriginalValue = timeStamp;
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success", "Home");
+                    return RedirectToAction("Success", "Home");
+                // }
+                // return RedirectToAction("ErrorSomethingWentWrong");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return RedirectToAction("ErrorSomethingWentWrong");
             }
 
-            return RedirectToAction("ErrorSomethingWentWrong");
         }
 
         public async Task<IActionResult> BookRentals()
@@ -354,7 +372,7 @@ namespace MvcLibrary.Controllers
             return View(bookGenreVM);
         }
 
-        public async Task<IActionResult> AcceptReturn(int? id)
+        public async Task<IActionResult> AcceptReturn(int? id, byte[] timeStamp)
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
@@ -378,19 +396,29 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
-            if (book.ReservedUntil == null && book.LentUntil != null)
+
+            try
             {
-                book.UserId = null;
-                book.ReservedUntil = null;
-                book.LentUntil = null;
-                // book.TimeStamp = DateTime.Now;
-                _context.Update(book);
-                await _context.SaveChangesAsync();
+                // This should be uncommented to prevent the same user from accepting return of a book in an invalid state
+                // It has been commented out in order to allow the user to check the concurrency.
+                // if (book.ReservedUntil == null && book.LentUntil != null)
+                // {
+                    book.UserId = null;
+                    book.ReservedUntil = null;
+                    book.LentUntil = null;
+                    _context.Entry(book).Property("TimeStamp").OriginalValue = timeStamp;
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success", "Home");
+                    return RedirectToAction("Success", "Home");
+                // }
+                //
+                // return RedirectToAction("ErrorSomethingWentWrong");
             }
-
-            return RedirectToAction("ErrorSomethingWentWrong");
+            catch (DbUpdateConcurrencyException)
+            {
+                return RedirectToAction("ErrorBookUnavailable");
+            }
         }
 
         // Messages
