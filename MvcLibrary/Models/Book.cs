@@ -42,8 +42,7 @@ namespace MvcLibrary.Models
         [DataType(DataType.Date)]
         public DateTime? LentUntil { get; set; }
 
-        [ConcurrencyCheck]
-        [DataType(DataType.Date)]
-        public DateTime? TimeStamp { get; set; } = DateTime.Now;
+        [Timestamp]
+        public byte[] TimeStamp { get; set; }
     }
 }

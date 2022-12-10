@@ -73,8 +73,10 @@ namespace MvcLibrary.Controllers
           return _context.Book.Any(e => e.Id == id);
         }
 
-        // GET: Books/Reserve/5
-        public async Task<IActionResult> Reserve(int? id)
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reserve(int? id, byte[] timeStamp)
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetInt32(SessionData.SessionKeyUserId).ToString()))
             {
@@ -98,19 +100,31 @@ namespace MvcLibrary.Controllers
                 return NotFound();
             }
 
-            if (book.ReservedUntil == null && book.LentUntil == null)
+            try
             {
-                book.UserId = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
-                book.ReservedUntil = DateTime.Today.AddDays(1);
-                book.LentUntil = null;
-                book.TimeStamp = DateTime.Now;
-                _context.Update(book);
-                await _context.SaveChangesAsync();
+                // This should be uncommented to prevent the same user from re-reserving the same book 
+                // the same day.
+                // It has been commented out in order to allow the user to check the concurrency.
+                // if (book.ReservedUntil == null && book.LentUntil == null)
+                // {
+                    book.UserId = HttpContext.Session.GetInt32(SessionData.SessionKeyUserId);
+                    book.ReservedUntil = DateTime.Today.AddDays(1);
+                    book.LentUntil = null;
+                    // book.TimeStamp = DateTime.Now;
+                    _context.Entry(book).Property("TimeStamp").OriginalValue = timeStamp;
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Success", "Home");
+                    return RedirectToAction("Success", "Home");
+                // }
+                //
+                // return RedirectToAction("ErrorBookUnavailable");
+                
             }
-            
-            return RedirectToAction("ErrorBookUnavailable");
+            catch (DbUpdateConcurrencyException)
+            {
+                return RedirectToAction("ErrorBookUnavailable");
+            }
         }
 
         public async Task<IActionResult> BookReservations()
@@ -183,7 +197,7 @@ namespace MvcLibrary.Controllers
                 book.UserId = null;
                 book.ReservedUntil = null;
                 book.LentUntil = null;
-                book.TimeStamp = DateTime.Now;
+                // book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
@@ -253,7 +267,7 @@ namespace MvcLibrary.Controllers
             {
                 book.ReservedUntil = null;
                 book.LentUntil = DateTime.Today.AddDays(30);
-                book.TimeStamp = DateTime.Now;
+                // book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 
@@ -369,7 +383,7 @@ namespace MvcLibrary.Controllers
                 book.UserId = null;
                 book.ReservedUntil = null;
                 book.LentUntil = null;
-                book.TimeStamp = DateTime.Now;
+                // book.TimeStamp = DateTime.Now;
                 _context.Update(book);
                 await _context.SaveChangesAsync();
 

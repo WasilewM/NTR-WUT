@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MvcLibrary.Migrations
 {
-    public partial class InitialMigrationAfterDBRestore : Migration
+    public partial class InitialMigrationAfterChangingTimeStampTypeInBookModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,8 @@ namespace MvcLibrary.Migrations
                     PagesNumber = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     ReservedUntil = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LentUntil = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    LentUntil = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +39,9 @@ namespace MvcLibrary.Migrations
                     Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IsLibrarian = table.Column<decimal>(type: "decimal(1,0)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

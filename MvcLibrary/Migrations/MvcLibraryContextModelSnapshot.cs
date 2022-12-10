@@ -52,9 +52,11 @@ namespace MvcLibrary.Migrations
                     b.Property<DateTime?>("ReservedUntil")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("TimeStamp")
+                    b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<string>("Title")
                         .IsRequired()

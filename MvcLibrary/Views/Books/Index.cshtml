@@ -49,8 +49,14 @@
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
+
             <td>
-                <a asp-action="Reserve" asp-route-id="@item.Id">Reserve</a>
+                <form asp-action="Reserve" asp-route-id="@item.Id" method="post">
+                    <input type="hidden" name="timeStamp" asp-for="@item.TimeStamp"/>
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Reserve" class="btn"/>
+                    </div>
+                </form>
             </td>
         </tr>
 }

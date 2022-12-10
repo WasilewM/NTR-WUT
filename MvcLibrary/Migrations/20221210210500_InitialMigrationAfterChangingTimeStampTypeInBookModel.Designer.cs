@@ -12,8 +12,8 @@ using MvcLibrary.Data;
 namespace MvcLibrary.Migrations
 {
     [DbContext(typeof(MvcLibraryContext))]
-    [Migration("20221111170224_AddedIsLibrarianAttributeToUserModel")]
-    partial class AddedIsLibrarianAttributeToUserModel
+    [Migration("20221210210500_InitialMigrationAfterChangingTimeStampTypeInBookModel")]
+    partial class InitialMigrationAfterChangingTimeStampTypeInBookModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,12 @@ namespace MvcLibrary.Migrations
                     b.Property<DateTime?>("ReservedUntil")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -92,6 +98,9 @@ namespace MvcLibrary.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("TimeStamp")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
                         .IsRequired()

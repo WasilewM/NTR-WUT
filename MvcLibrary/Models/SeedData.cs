@@ -22,10 +22,26 @@ namespace MvcLibrary.Models
                         new User
                         {
                             Username = "Librarian",
-                            FirstName = "Mateusz",
-                            LastName = "Wasilewski",
+                            FirstName = "Henryk",
+                            LastName = "Sienkiewicz",
                             Password = "admin123",
                             IsLibrarian = 1
+                        },
+                        new User
+                        {
+                            Username = "sbatory",
+                            FirstName = "Stefan",
+                            LastName = "Batory",
+                            Password = "123456789",
+                            IsLibrarian = 0
+                        },
+                        new User
+                        {
+                            Username = "szolkiew",
+                            FirstName = "Stanisław",
+                            LastName = "Żółkiewski",
+                            Password = "123456789",
+                            IsLibrarian = 0
                         }
                     );
                 }
@@ -45,8 +61,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 384,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp  = DateTime.Now
+                            LentUntil = null
             },
 
                         new Book
@@ -58,8 +73,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 288,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -71,8 +85,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 320,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -84,8 +97,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 351,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -97,8 +109,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 352,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -110,8 +121,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 464,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -123,8 +133,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 544,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -136,8 +145,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 384,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         // The Chronicles of Narnia Saga
@@ -150,8 +158,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 200,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -163,8 +170,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 195,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -176,8 +182,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 223,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -189,8 +194,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 217,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -202,8 +206,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 199,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -215,8 +218,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 183,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -228,8 +230,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 184,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         // Genre: Education
@@ -242,8 +243,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 464,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         },
 
                         new Book
@@ -255,8 +255,7 @@ namespace MvcLibrary.Models
                             PagesNumber = 432,
                             UserId = null,
                             ReservedUntil = null,
-                            LentUntil = null,
-                            TimeStamp = DateTime.Now
+                            LentUntil = null
                         }
                     );
                 }
