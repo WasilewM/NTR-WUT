@@ -1,4 +1,5 @@
 import { Counter } from "./components/Counter";
+import { BookDetails } from "./components/BookDetails";
 import { MyReservations } from "./components/MyReservations";
 import { MyRentals } from "./components/MyRentals";
 import { BooksList } from "./components/BooksList";
@@ -24,6 +25,10 @@ const AppRoutes = [
   {
     path: '/books',
     element: <BooksList/>
+  },
+  {
+    path: '/book-details',
+    element: <BookDetails/>
   }
 ];
 

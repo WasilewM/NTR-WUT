@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class BooksList extends Component {
   static displayName = BooksList.name;
 
   constructor(props) {
     super(props);
-    this.state = { books: [], loading: true };
+    this.state = { books: [], loading: true, bookId: null };
   }
 
   componentDidMount() {
     this.populateBookData();
   }
+
+    //saveBookId = e => this.setState(bookId: e.bookId);
 
   static renderBooksTable(books) {
     return (
@@ -34,7 +37,14 @@ export class BooksList extends Component {
               <td>{book.releaseDate}</td>
               <td>{book.genre}</td>
               <td>{book.pagesNumber}</td>
-              <td>Details</td>
+                  {/*(localStorage.setItem('bookId', book.id))*/}
+                  {/*<td><button type="button" class="btn btn-success" onClick={() => displayDetails()}>Details</button></td>*/}
+                  {/*<td><Link tag={Link} className="text-dark" to="/book-details">Details</Link></td>*/}
+                  <td>
+                      <button onClick={() => { const { bookId } = this.state; }}>
+                          <Link tag={Link} className="text-dark" to="/book-details">Details</Link>
+                      </button>
+                  </td>
               <td>Reserve</td>
             </tr>
           )}
