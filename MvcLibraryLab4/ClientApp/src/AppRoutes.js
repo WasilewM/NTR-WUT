@@ -1,4 +1,3 @@
-import { Counter } from "./components/Counter";
 import { BookDetails } from "./components/BookDetails";
 import { MyReservations } from "./components/MyReservations";
 import { MyRentals } from "./components/MyRentals";
@@ -9,10 +8,6 @@ const AppRoutes = [
   {
     index: true,
     element: <Home />
-  },
-  {
-    path: '/counter',
-    element: <Counter />
   },
   {
     path: '/my-reservations',
