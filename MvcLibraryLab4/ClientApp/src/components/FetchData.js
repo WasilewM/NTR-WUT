@@ -5,31 +5,33 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { books: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateBookData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderBooksTable(books) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Release Date</th>
+            <th>Genre</th>
+            <th>Number of Pages</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {books.map(book=>
+            <tr key={book.id}>
+              <td>{book.title}</td>
+              <td>{book.author}</td>
+              <td>{book.releaseDate}</td>
+              <td>{book.genre}</td>
+              <td>{book.pagesNumber}</td>
             </tr>
           )}
         </tbody>
@@ -40,20 +42,20 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderBooksTable(this.state.books);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Books List</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+  async populateBookData() {
+    const response = await fetch('books');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ books: data, loading: false });
   }
 }

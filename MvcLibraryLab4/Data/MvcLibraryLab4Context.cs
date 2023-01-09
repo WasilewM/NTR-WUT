@@ -14,6 +14,7 @@ namespace MvcLibraryLab4.Data
         {
         }
 
-        public DbSet<MvcLibraryLab4.Models.WeatherForecast> WeatherForecasts{ get; set; } = default!;
+        public DbSet<MvcLibraryLab4.Models.WeatherForecast> WeatherForecasts { get; set; }
+        public DbSet<MvcLibraryLab4.Models.Book> Book { get; set; } = default!;
     }
 }
