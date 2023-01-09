@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-export class BooksList extends Component {
-  static displayName = BooksList.name;
+export class MyReservations extends Component {
+  static displayName = MyReservations.name;
 
   constructor(props) {
     super(props);
@@ -23,7 +23,6 @@ export class BooksList extends Component {
             <th>Genre</th>
             <th>Number of Pages</th>
             <th colspan="2">Options</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +34,7 @@ export class BooksList extends Component {
               <td>{book.genre}</td>
               <td>{book.pagesNumber}</td>
               <td>Details</td>
-              <td>Reserve</td>
+              <td>Cancel</td>
             </tr>
           )}
         </tbody>
@@ -46,12 +45,12 @@ export class BooksList extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : BooksList.renderBooksTable(this.state.books);
+      : MyReservations.renderBooksTable(this.state.books);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Books List</h1>
-        <p>Here you can explore all books from the MvcLibrary4 catalogue.</p>
+        <h1 id="tabelLabel" >My Reservations</h1>
+        <p>Here you can find your book reservations.</p>
         {contents}
       </div>
     );
