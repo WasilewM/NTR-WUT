@@ -11,7 +11,7 @@ namespace MvcLibraryLab4.Models
                        serviceProvider.GetRequiredService<
                            DbContextOptions<MvcLibraryLab4Context>>()))
             {
-                // Look for any movies.
+                // Look for any WeatherForecasts.
                 if (context.WeatherForecasts.Any())
                 {
                     return;   // DB has been seeded
