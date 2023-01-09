@@ -13,8 +13,7 @@ namespace MvcLibraryLab4.Data
             : base(options)
         {
         }
-
-        public DbSet<MvcLibraryLab4.Models.WeatherForecast> WeatherForecasts { get; set; }
+        
         public DbSet<MvcLibraryLab4.Models.Book> Book { get; set; } = default!;
     }
 }
