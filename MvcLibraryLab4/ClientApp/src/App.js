@@ -28,10 +28,10 @@ function App() {
     return (
         <div>
             <MainNavigation onHomeClick={homeClickHandler} onLibraryClick={libraryClickHandler} onMyRentalsClick={myRentalsClickHandler} onMyReservationsClick={myReservationsClickHandler} />
-            {tabIsOpen == 'Home' && <Home/>}
-            {tabIsOpen == 'Library' && <Library/>}
-            {tabIsOpen == 'MyRentals' && <MyRentals/>}
-            {tabIsOpen == 'MyReservations' && <MyReservations />}
+            {tabIsOpen === 'Home' && <Home/>}
+            {tabIsOpen === 'Library' && <Library/>}
+            {tabIsOpen === 'MyRentals' && <MyRentals/>}
+            {tabIsOpen === 'MyReservations' && <MyReservations />}
         </div>
     );
 }
