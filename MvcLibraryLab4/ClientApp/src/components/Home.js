@@ -1,6 +1,14 @@
+import CreateNewAccount from "./CreateNewAccount";
+import Login from "./Login";
+
 function Home() {
     return (
-        <div>Here is the Home page.</div>
+        <section>
+            <h1>The Home page.</h1>
+            <p>Here is some home page description</p>
+            <Login/>
+            <CreateNewAccount/>
+        </section>
     );
 }
 

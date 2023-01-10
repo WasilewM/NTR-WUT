@@ -1,0 +1,10 @@
+/*
+    CSS styling from YT course: https://www.youtube.com/watch?v=Dorf8i6lCuk&ab_channel=Academind
+    source: https://github.com/academind/react-complete-guide-code/blob/zz-reactjs-summary/extra-files/Layout.module.css
+*/
+
+.main {
+    margin: 3rem auto;
+    width: 90%;
+    max-width: 40rem;
+}
