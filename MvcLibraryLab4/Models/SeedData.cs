@@ -11,42 +11,41 @@ namespace MvcLibraryLab4.Models
                        serviceProvider.GetRequiredService<
                            DbContextOptions<MvcLibraryLab4Context>>()))
             {
+                // Look for any Users.
+                if (!context.User.Any())
+                {
+                    context.User.AddRange(
+                        // Add Librarian
+                        new User
+                        {
+                            Username = "Librarian",
+                            FirstName = "Henryk",
+                            LastName = "Sienkiewicz",
+                            Password = "admin123",
+                            IsLibrarian = 1
+                        },
+                        new User
+                        {
+                            Username = "sbatory",
+                            FirstName = "Stefan",
+                            LastName = "Batory",
+                            Password = "123456789",
+                            IsLibrarian = 0
+                        },
+                        new User
+                        {
+                            Username = "szolkiew",
+                            FirstName = "Stanisław",
+                            LastName = "Żółkiewski",
+                            Password = "123456789",
+                            IsLibrarian = 0
+                        }
+                    );
+                }
 
                 // Look for any Books.
                 if (!context.Book.Any())
                 {
-                    // Look for any Users.
-                    if (!context.User.Any())
-                    {
-                        context.User.AddRange(
-                            // Add Librarian
-                            new User
-                            {
-                                Username = "Librarian",
-                                FirstName = "Henryk",
-                                LastName = "Sienkiewicz",
-                                Password = "admin123",
-                                IsLibrarian = 1
-                            },
-                            new User
-                            {
-                                Username = "sbatory",
-                                FirstName = "Stefan",
-                                LastName = "Batory",
-                                Password = "123456789",
-                                IsLibrarian = 0
-                            },
-                            new User
-                            {
-                                Username = "szolkiew",
-                                FirstName = "Stanisław",
-                                LastName = "Żółkiewski",
-                                Password = "123456789",
-                                IsLibrarian = 0
-                            }
-                        );
-                    }
-
                     context.Book.AddRange(
                         // Genre: Fantasy
                         // The Wither Saga
