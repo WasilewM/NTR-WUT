@@ -1,6 +1,5 @@
-import classes from './CreateNewAccountForm.module.css'
-
 import { useRef } from 'react'
+import classes from './CreateNewAccountForm.module.css'
 
 
 function CreateNewAccountForm(props) {
@@ -24,7 +23,7 @@ function CreateNewAccountForm(props) {
             password: enteredPassword
         }
 
-        props.onCreatNewAccount(newAccountData);
+        props.onCreateNewAccount(newAccountData);
     }
 
     return (

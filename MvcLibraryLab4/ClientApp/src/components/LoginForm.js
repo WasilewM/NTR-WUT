@@ -14,7 +14,7 @@ function LoginForm() {
                     <input type='password' required id='password' />
                 </div>
                 <div className={classes.action}>
-                    <button>Create Account</button>
+                    <button>Log in</button>
                 </div>
             </form>
         </section>
