@@ -13,6 +13,12 @@ function MainNavigation(props) {
                     <li>
                         <button onClick={props.onLibraryClick}>Library</button>
                     </li>
+                    <li>
+                        <button onClick={props.onMyRentalsClick}>MyRentals</button>
+                    </li>
+                    <li>
+                        <button onClick={props.onMyReservationsClick}>MyReservations</button>
+                    </li>
 
                 </ul>
             </nav>
