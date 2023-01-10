@@ -15,5 +15,7 @@ namespace MvcLibraryLab4.Data
         }
         
         public DbSet<MvcLibraryLab4.Models.Book> Book { get; set; } = default!;
+
+        public DbSet<MvcLibraryLab4.Models.User> User { get; set; }
     }
 }
