@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTRLab4Backend.Data;
@@ -43,6 +42,22 @@ namespace NTRLab4Backend.Controllers
 
             books = books.Where(b => b.UserId == user.Id);
             books = books.Where(b => b.ReservedUntil != null);
+            books = books.Where(b => b.LentUntil == null);
+            return new JsonResult(books);
+        }
+
+        [HttpGet("/api/[controller]/myrentals/{Username}")]
+        public async Task<JsonResult> MyRentals(String Username)
+        {
+            // @TODO: Add validation
+            var user = await _context.User
+                .FirstOrDefaultAsync(u => u.Username == Username);
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(b => b.UserId == user.Id);
+            books = books.Where(b => b.ReservedUntil == null);
+            books = books.Where(b => b.LentUntil != null);
             return new JsonResult(books);
         }
 
