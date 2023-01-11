@@ -122,7 +122,7 @@ function App() {
         {(tabIsOpen === 'Home' && userIsLogged != null) && <UserHome getUsername={getUsernameHandler}/>}
         {tabIsOpen === 'Library' && <Library/>}
         {tabIsOpen === 'MyReservations' && <MyReservations getUsername={getUsernameHandler}/>}
-        {tabIsOpen === 'MyRentals' && <MyRentals/>}
+        {tabIsOpen === 'MyRentals' && <MyRentals getUsername={getUsernameHandler}/>}
 
         {/* Modals */}
           {/* @TODO: Extract modal to separate file if time allows */}
