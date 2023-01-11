@@ -58,7 +58,7 @@ function MyReservations(props) {
                                 <td>{book.Genre}</td>
                                 <td>{book.PagesNumber}</td>
                                 <td>
-                                    <button className="btn btn-light mr-1">Details</button>
+                                    {/* <button className="btn btn-light mr-1">Details</button> */}
                                     <button className="btn btn-light mr-1">Cancel</button>
                                 </td>
                             </tr>

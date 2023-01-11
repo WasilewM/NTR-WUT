@@ -120,7 +120,7 @@ function App() {
           onMyRentalsClick={myRentalsClickHandler} onMyReservationsClick={myReservationsClickHandler}/>
         {(tabIsOpen === 'Home' && userIsLogged === null) && <VisitiorHome/>}
         {(tabIsOpen === 'Home' && userIsLogged != null) && <UserHome getUsername={getUsernameHandler}/>}
-        {tabIsOpen === 'Library' && <Library/>}
+        {tabIsOpen === 'Library' && <Library getUsername={getUsernameHandler}/>}
         {tabIsOpen === 'MyReservations' && <MyReservations getUsername={getUsernameHandler}/>}
         {tabIsOpen === 'MyRentals' && <MyRentals getUsername={getUsernameHandler}/>}
 
