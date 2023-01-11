@@ -33,10 +33,30 @@ namespace NTRLab4Backend.Controllers
         [HttpPost]
         public async Task<Boolean> Post(User User)
         {
+            // @TODO: Add validation for duplicated usernames
             _context.Add(User);
             await _context.SaveChangesAsync();
             return true;
         }
+
+        [HttpPost]
+        [Route("/api/[controller]/login")]
+        public async Task<Boolean> Login(Credentials credentials)
+            // need to use Credentials class instead of 2 separate String objects, otherwise, the data are not being mapped
+        {
+            // @TODO: Add session guid generation
+            var user = await _context.User
+                .FirstOrDefaultAsync(u => u.Username == credentials.Username);
+
+            if (user != null && user.Password == credentials.Password)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
         [HttpPut]
         public async Task<Boolean> Put(User User)
