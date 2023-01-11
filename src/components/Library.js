@@ -10,8 +10,6 @@ function Library(props) {
     function reserveHanlder(event) {
         event.preventDefault();     // prevent server request
 
-        console.log(isBookChosen);
-        console.log((new Date()).toISOString());
         const bookData = {
             id: isBookChosen.Id,
             title: isBookChosen.Title,

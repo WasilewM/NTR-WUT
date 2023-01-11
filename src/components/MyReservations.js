@@ -5,6 +5,43 @@ import {variables} from '../Variables.js'
 function MyReservations(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedBooks, setLoadedBooks] = useState([]);
+    const [isBookChosen, setIsBookChosen] = useState(null);
+
+    function cancelHanlder(event) {
+        event.preventDefault();     // prevent server request
+
+        const bookData = {
+            id: isBookChosen.Id,
+            title: isBookChosen.Title,
+            author: isBookChosen.Author,
+            releaseDate: isBookChosen.ReleaseDate,
+            genre: isBookChosen.Genre,
+            pagesNumber: isBookChosen.PagesNumber,
+            username: null,
+            reservedUntil: null,
+            lentUntil: isBookChosen.LentUntil,
+            timeStamp: isBookChosen.TimeStamp
+        }
+
+        fetch(variables.API_URL+"book", {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bookData)
+        })
+        .then(res => res.json())
+        .then((result) => {
+            if (result === true) {
+                alert("Success");
+            }
+            else {
+                alert("Failure");
+            }
+        })
+        setIsBookChosen(null);
+    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -28,15 +65,15 @@ function MyReservations(props) {
     if (isLoading) {
         return (
             <section>
-                <h2>The Library</h2>
-                <p>The Library data is loading. Please wait.</p>
+                <h2>MyReservations</h2>
+                <p>Your book reservation data is loading. Please wait.</p>
             </section>
         )
     }
 
     return (
         <div>
-            <h2>The Library</h2>
+            <h2>MyReservations</h2>
             <table className='table table-striped'>
                 <thead>
                     <tr>
@@ -59,7 +96,7 @@ function MyReservations(props) {
                                 <td>{book.PagesNumber}</td>
                                 <td>
                                     {/* <button className="btn btn-light mr-1">Details</button> */}
-                                    <button className="btn btn-light mr-1">Cancel</button>
+                                    <button className="btn btn-light mr-1" onMouseEnter={() => setIsBookChosen(book)} onClick={cancelHanlder}>Cancel</button>
                                 </td>
                             </tr>
                         )
