@@ -10,6 +10,7 @@ import MyReservations from './components/MyReservations';
 
 function App() {
   const [tabIsOpen, setTabIsOpen] = useState('Home');
+  const [userIsLogged, setUserIsLogged] = useState(null);
 
   function homeClickHandler() {
       setTabIsOpen('Home');
@@ -36,7 +37,9 @@ function App() {
         <h2 className="d-flex justify-content-center m-3">
           NTR22Z Lab 4
         </h2>
-        <MainNavigation onHomeClick={homeClickHandler} onLibraryClick={libraryClickHandler} onMyAccountClick={myAccountClickHandler} onMyRentalsClick={myRentalsClickHandler} onMyReservationsClick={myReservationsClickHandler} />
+        <MainNavigation onHomeClick={homeClickHandler} onLibraryClick={libraryClickHandler}
+          onMyAccountClick={myAccountClickHandler} onMyRentalsClick={myRentalsClickHandler}
+          onMyReservationsClick={myReservationsClickHandler}/>
             {tabIsOpen === 'Home' && <Home/>}
             {tabIsOpen === 'Library' && <Library/>}
             {tabIsOpen === 'MyAccount' && <MyAccount />}

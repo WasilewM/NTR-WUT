@@ -2,11 +2,13 @@ import { useRef } from 'react'
 import {variables} from '../Variables.js'
 
 
-function Home() {
+function MyAccount(props) {
     const usernameInputRef = useRef();
     const firstnameInputRef = useRef();
     const lastnameInputRef = useRef();
     const passwordInputRef = useRef();
+    const credentialsUsernameInputRef = useRef();
+    const credentialsPasswordInputRef = useRef();
 
     function createAccountHandler(event) {
         event.preventDefault();     // prevent server request
@@ -29,7 +31,7 @@ function Home() {
         })
         .then(res => res.json())
         .then((result) => {
-            if (result == true) {
+            if (result === true) {
                 alert("Success");
             }
             else {
@@ -42,8 +44,8 @@ function Home() {
         event.preventDefault();     // prevent server request
 
         const credentialsData = {
-            username: usernameInputRef.current.value,
-            password: passwordInputRef.current.value
+            username: credentialsUsernameInputRef.current.value,
+            password: credentialsPasswordInputRef.current.value
         }
 
 
@@ -57,8 +59,10 @@ function Home() {
         })
         .then(res => res.json())
         .then((result) => {
-            if (result == true) {
+            if (result === true) {
                 alert("Success");
+                variables.USERNAME = credentialsUsernameInputRef.current.value;
+                console.log(variables.USERNAME);
             }
             else {
                 alert("Failure");
@@ -79,6 +83,7 @@ function Home() {
                 Log in
             </button>
 
+            {/* @TODO: Extract modal to separate file if time allows */}
             <div className="modal fade" id="CreateAccountModal" tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
@@ -87,7 +92,7 @@ function Home() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                             <form onSubmit>
+                             <form onSubmit={createAccountHandler}>
                                 <div className="input-group mb-3">
                                     <label className="input-group-text" htmlFor='username'>Username</label>
                                     <input type='text' className="form-control" required id='username' ref={usernameInputRef}/>
@@ -105,7 +110,7 @@ function Home() {
                                     <input type='password' className="form-control" required id='password' ref={passwordInputRef}/>
                                 </div>
                                 <div>
-                                    <button className="btn btn-primary float-start" onClick={createAccountHandler}>Create Account</button>
+                                    <button className="btn btn-primary float-start">Create Account</button>
                                 </div>
                             </form>
                         </div>
@@ -113,6 +118,7 @@ function Home() {
                 </div>    
             </div>
 
+            {/* @TODO: Extract modal to separate file if time allows */}
             <div className="modal fade" id="LogInModal" tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
@@ -121,17 +127,17 @@ function Home() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                             <form onSubmit>
+                             <form onSubmit={logInHandler}>
                                 <div className="input-group mb-3">
                                     <label className="input-group-text" htmlFor='username'>Username</label>
-                                    <input type='text' className="form-control" required id='username' ref={usernameInputRef}/>
+                                    <input type='text' className="form-control" required id='username' ref={credentialsUsernameInputRef}/>
                                 </div>
                                 <div className="input-group mb-3">
                                     <label className="input-group-text" htmlFor='password'>Password</label>
-                                    <input type='password' className="form-control" required id='password' ref={passwordInputRef}/>
+                                    <input type='password' className="form-control" required id='password' ref={credentialsPasswordInputRef}/>
                                 </div>
                                 <div>
-                                    <button className="btn btn-primary float-start" onClick={logInHandler}>Log in</button>
+                                    <button className="btn btn-primary float-start">Log in</button>
                                 </div>
                             </form>
                         </div>
@@ -142,4 +148,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default MyAccount;
