@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import {variables} from '../Variables.js'
 
 
-
 function Library() {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedBooks, setLoadedBooks] = useState([]);
