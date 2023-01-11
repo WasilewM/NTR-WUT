@@ -32,30 +32,26 @@ namespace NTRLab4Backend.Controllers
         }
 
         [HttpGet("/api/[controller]/myreservations/{Username}")]
-        public async Task<JsonResult> MyReservations(String Username)
+        public JsonResult MyReservations(String Username)
         {
             // @TODO: Add validation
-            var user = await _context.User
-                .FirstOrDefaultAsync(u => u.Username == Username);
             var books = from b in _context.Book
                 select b;
 
-            books = books.Where(b => b.UserId == user.Id);
+            books = books.Where(b => b.Username == Username);
             books = books.Where(b => b.ReservedUntil != null);
             books = books.Where(b => b.LentUntil == null);
             return new JsonResult(books);
         }
 
         [HttpGet("/api/[controller]/myrentals/{Username}")]
-        public async Task<JsonResult> MyRentals(String Username)
+        public JsonResult MyRentals(String Username)
         {
             // @TODO: Add validation
-            var user = await _context.User
-                .FirstOrDefaultAsync(u => u.Username == Username);
             var books = from b in _context.Book
                 select b;
 
-            books = books.Where(b => b.UserId == user.Id);
+            books = books.Where(b => b.Username == Username);
             books = books.Where(b => b.ReservedUntil == null);
             books = books.Where(b => b.LentUntil != null);
             return new JsonResult(books);
@@ -77,6 +73,7 @@ namespace NTRLab4Backend.Controllers
             await _context.SaveChangesAsync();
             return true;
         }
+
 
         [HttpDelete("{id}")]
         public async Task<Boolean> Delete(int id)

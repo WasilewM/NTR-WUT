@@ -20,9 +20,11 @@ namespace NTRLab4Backend.Models
         [Column(TypeName  = "decimal(18, 0)")]
         public int PagesNumber { get; set; }
 
-        [ForeignKey("User")]
-        public int? UserId { get; set; }
-        
+        // [ForeignKey("User")]
+        // public int? UserId { get; set; }
+        // @TODO: Fix me
+        public string? Username { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime? ReservedUntil { get; set; }
         
