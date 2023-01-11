@@ -33,10 +33,6 @@ function App() {
       setTabIsOpen('Library');
   }
 
-  function myAccountClickHandler() {
-    setTabIsOpen('MyAccount')
-  }
-
   function myRentalsClickHandler() {
       setTabIsOpen('MyRentals');
   }
@@ -125,7 +121,7 @@ function App() {
         {(tabIsOpen === 'Home' && userIsLogged === null) && <VisitiorHome/>}
         {(tabIsOpen === 'Home' && userIsLogged != null) && <UserHome getUsername={getUsernameHandler}/>}
         {tabIsOpen === 'Library' && <Library/>}
-        {tabIsOpen === 'MyReservations' && <MyReservations />}
+        {tabIsOpen === 'MyReservations' && <MyReservations getUsername={getUsernameHandler}/>}
         {tabIsOpen === 'MyRentals' && <MyRentals/>}
 
         {/* Modals */}
