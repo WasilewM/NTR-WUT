@@ -1,10 +1,12 @@
 ﻿using System.Data;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTRLab4Backend.Data;
 using NTRLab4Backend.Models;
+using static System.Reflection.Metadata.BlobBuilder;
 
 
 namespace NTRLab4Backend.Controllers
@@ -28,6 +30,20 @@ namespace NTRLab4Backend.Controllers
 
 
             return new JsonResult(Books);
+        }
+
+        [HttpGet("/api/[controller]/myreservations/{Username}")]
+        public async Task<JsonResult> MyReservations(String Username)
+        {
+            // @TODO: Add validation
+            var user = await _context.User
+                .FirstOrDefaultAsync(u => u.Username == Username);
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(b => b.UserId == user.Id);
+            books = books.Where(b => b.ReservedUntil != null);
+            return new JsonResult(books);
         }
 
         // @TODO: Fix me if time allows
