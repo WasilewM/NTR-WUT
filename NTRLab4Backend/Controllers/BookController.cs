@@ -11,11 +11,11 @@ namespace NTRLab4Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class BookController : ControllerBase
     {
         private readonly NTRLab4BackendContext _context;
 
-        public UserController(NTRLab4BackendContext context)
+        public BookController(NTRLab4BackendContext context)
         {
             _context = context;
         }
@@ -23,25 +23,26 @@ namespace NTRLab4Backend.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            var Users = from u in _context.User
-                select u;
+            var Books = from b in _context.Book
+                select b;
 
 
-            return new JsonResult(Users);
+            return new JsonResult(Books);
         }
 
-        [HttpPost]
-        public async Task<Boolean> Post(User User)
-        {
-            _context.Add(User);
-            await _context.SaveChangesAsync();
-            return true;
-        }
+        // @TODO: Fix me if time allows
+        // [HttpPost]
+        // public async Task<Boolean> Post(Book Book)
+        // {
+        //     _context.Add(Book);
+        //     await _context.SaveChangesAsync();
+        //     return true;
+        // }
 
         [HttpPut]
-        public async Task<Boolean> Put(User User)
+        public async Task<Boolean> Put(Book Book)
         {
-            _context.Update(User);
+            _context.Update(Book);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -49,13 +50,12 @@ namespace NTRLab4Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<Boolean> Delete(int id)
         {
-            var user = await _context.User
-                .FirstOrDefaultAsync(u => u.Id == id);
+            var Book = await _context.Book
+                .FirstOrDefaultAsync(b => b.Id == id);
 
-            _context.User.Remove(user);
+            _context.Book.Remove(Book);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }
