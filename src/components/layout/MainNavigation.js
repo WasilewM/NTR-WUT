@@ -10,9 +10,6 @@ function MainNavigation(props) {
                         <button className="btn btn-light btn-outline-primary" onClick={props.onLibraryClick}>Library</button>
                     </li>
                     <li className="nav-item- m-1">
-                        <button className="btn btn-light btn-outline-primary" onClick={props.onMyAccountClick}>MyAccount</button>
-                    </li>
-                    <li className="nav-item- m-1">
                         <button className="btn btn-light btn-outline-primary" onClick={props.onMyReservationsClick}>MyReservations</button>
                     </li>
                     <li className="nav-item- m-1">
