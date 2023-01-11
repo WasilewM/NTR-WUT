@@ -1,6 +1,12 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using NTRLab4Backend.Data;
+using NTRLab4Backend.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<NTRLab4BackendContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcLibraryContext") ?? throw new InvalidOperationException("Connection string 'NTRLab4BackendContext' not found.")));
+
 
 // Add services to the container.
 
@@ -22,6 +28,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Seed the Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialiaze(services);
+}
 
 // Enable CORS
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
