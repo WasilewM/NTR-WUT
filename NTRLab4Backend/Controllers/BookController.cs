@@ -27,6 +27,9 @@ namespace NTRLab4Backend.Controllers
             var Books = from b in _context.Book
                 select b;
 
+            Books = Books.Where(b => b.Username == null);
+            Books = Books.Where(b => b.ReservedUntil == null);
+            Books = Books.Where(b => b.LentUntil == null);
 
             return new JsonResult(Books);
         }
