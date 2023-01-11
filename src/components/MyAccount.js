@@ -29,11 +29,43 @@ function Home() {
         })
         .then(res => res.json())
         .then((result) => {
-            alert("Success");
-        },(error)=>{
-            alert("Failed");
+            if (result == true) {
+                alert("Success");
+            }
+            else {
+                alert("Failure");
+            }
         })
     }
+
+    function logInHandler(event) {
+        event.preventDefault();     // prevent server request
+
+        const credentialsData = {
+            username: usernameInputRef.current.value,
+            password: passwordInputRef.current.value
+        }
+
+
+        fetch(variables.API_URL+"User/login", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(credentialsData)
+        })
+        .then(res => res.json())
+        .then((result) => {
+            if (result == true) {
+                alert("Success");
+            }
+            else {
+                alert("Failure");
+            }
+        })
+    }
+    
 
 
     return (
@@ -43,12 +75,15 @@ function Home() {
             <button className="btn btn-primary m-2 float-start" data-bs-toggle="modal" data-bs-target="#CreateAccountModal">
                 Create Account
             </button>
+            <button className="btn btn-primary m-2 float-start" data-bs-toggle="modal" data-bs-target="#LogInModal">
+                Log in
+            </button>
 
             <div className="modal fade" id="CreateAccountModal" tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Create Account</h5>
+                            <h5 className="modal-title">Please, provide your data</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -71,6 +106,32 @@ function Home() {
                                 </div>
                                 <div>
                                     <button className="btn btn-primary float-start" onClick={createAccountHandler}>Create Account</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+
+            <div className="modal fade" id="LogInModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Please, provide your credentials</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                             <form onSubmit>
+                                <div className="input-group mb-3">
+                                    <label className="input-group-text" htmlFor='username'>Username</label>
+                                    <input type='text' className="form-control" required id='username' ref={usernameInputRef}/>
+                                </div>
+                                <div className="input-group mb-3">
+                                    <label className="input-group-text" htmlFor='password'>Password</label>
+                                    <input type='password' className="form-control" required id='password' ref={passwordInputRef}/>
+                                </div>
+                                <div>
+                                    <button className="btn btn-primary float-start" onClick={logInHandler}>Log in</button>
                                 </div>
                             </form>
                         </div>
