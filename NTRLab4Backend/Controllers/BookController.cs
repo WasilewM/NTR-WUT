@@ -53,7 +53,8 @@ namespace NTRLab4Backend.Controllers
             // @TODO: Add validation
             var books = from b in _context.Book
                 select b;
-            
+
+            books = books.Where(b => b.Username != null);
             books = books.Where(b => b.ReservedUntil != null);
             books = books.Where(b => b.LentUntil == null);
             return new JsonResult(books);
@@ -67,6 +68,19 @@ namespace NTRLab4Backend.Controllers
                 select b;
 
             books = books.Where(b => b.Username == Username);
+            books = books.Where(b => b.ReservedUntil == null);
+            books = books.Where(b => b.LentUntil != null);
+            return new JsonResult(books);
+        }
+
+        [HttpGet("/api/[controller]/rentals/")]
+        public JsonResult Rentals()
+        {
+            // @TODO: Add validation
+            var books = from b in _context.Book
+                select b;
+
+            books = books.Where(b => b.Username != null);
             books = books.Where(b => b.ReservedUntil == null);
             books = books.Where(b => b.LentUntil != null);
             return new JsonResult(books);
