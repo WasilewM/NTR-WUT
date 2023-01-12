@@ -7,6 +7,9 @@ function VisitorHeaderButtons() {
           <button className="btn btn-primary m-2 float-start" data-bs-toggle="modal" data-bs-target="#LogInModal">
                 Log in
           </button>
+          <button className="btn btn-primary m-2 float-start" data-bs-toggle="modal" data-bs-target="#LogInAsAdminModal">
+                Log in as admin
+          </button>
         </h3>
     );
 }

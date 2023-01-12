@@ -1,14 +1,51 @@
 import { useState, useEffect } from 'react'
-import {variables} from '../Variables.js'
+import {variables} from '../../Variables.js'
 
 
-function MyRentals(props) {
+function MyReservations(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedBooks, setLoadedBooks] = useState([]);
+    const [isBookChosen, setIsBookChosen] = useState(null);
+
+    function cancelHanlder(event) {
+        event.preventDefault();     // prevent server request
+
+        const bookData = {
+            id: isBookChosen.Id,
+            title: isBookChosen.Title,
+            author: isBookChosen.Author,
+            releaseDate: isBookChosen.ReleaseDate,
+            genre: isBookChosen.Genre,
+            pagesNumber: isBookChosen.PagesNumber,
+            username: null,
+            reservedUntil: null,
+            lentUntil: isBookChosen.LentUntil,
+            timeStamp: isBookChosen.TimeStamp
+        }
+
+        fetch(variables.API_URL+"book", {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bookData)
+        })
+        .then(res => res.json())
+        .then((result) => {
+            if (result === true) {
+                alert("Success");
+            }
+            else {
+                alert("Failure");
+            }
+        })
+        setIsBookChosen(null);
+    }
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(variables.API_URL+'Book/myrentals/'+props.getUsername()).then(response => {
+        fetch(variables.API_URL+'Book/myreservations/'+props.getUsername()).then(response => {
             return response.json();
         }).then(data => {
             setIsLoading(false);
@@ -19,7 +56,7 @@ function MyRentals(props) {
     if (props.getUsername() == null) {
         return (
             <section>
-                <h2>MyRentals</h2>
+                <h2>MyReservations</h2>
                 <p>We are sorry to say that but you need to log in before viewing this content.</p>
             </section>
         )
@@ -28,15 +65,15 @@ function MyRentals(props) {
     if (isLoading) {
         return (
             <section>
-                <h2>The Library</h2>
-                <p>The Library data is loading. Please wait.</p>
+                <h2>MyReservations</h2>
+                <p>Your book reservation data is loading. Please wait.</p>
             </section>
         )
     }
 
     return (
         <div>
-            <h2>The Library</h2>
+            <h2>MyReservations</h2>
             <table className='table table-striped'>
                 <thead>
                     <tr>
@@ -45,6 +82,7 @@ function MyRentals(props) {
                         <th>Release Date</th>
                         <th>Genre</th>
                         <th>Number of Pages</th>
+                        <th>Reserved Until</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -57,9 +95,10 @@ function MyRentals(props) {
                                 <td>{book.ReleaseDate}</td>
                                 <td>{book.Genre}</td>
                                 <td>{book.PagesNumber}</td>
+                                <td>{book.ReservedUntil}</td>
                                 <td>
                                     {/* <button className="btn btn-light mr-1">Details</button> */}
-                                    <button className="btn btn-light mr-1">Cancel</button>
+                                    <button className="btn btn-light mr-1" onMouseEnter={() => setIsBookChosen(book)} onClick={cancelHanlder}>Cancel</button>
                                 </td>
                             </tr>
                         )
@@ -70,4 +109,4 @@ function MyRentals(props) {
     );
 }
 
-export default MyRentals;
+export default MyReservations;
