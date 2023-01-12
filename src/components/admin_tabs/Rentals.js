@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react'
 import {variables} from '../../Variables.js'
 
-// copy of PendingReservations.js
-
-function PendingReservations(props) {
+function Rentals(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedBooks, setLoadedBooks] = useState([]);
     const [isBookChosen, setIsBookChosen] = useState(null);
 
-    function cancelHanlder(event) {
+    function acceptReturnHandler(event) {
         event.preventDefault();     // prevent server request
 
         const bookData = {
@@ -20,7 +18,7 @@ function PendingReservations(props) {
             pagesNumber: isBookChosen.PagesNumber,
             username: null,
             reservedUntil: null,
-            lentUntil: isBookChosen.LentUntil,
+            lentUntil: null,
             timeStamp: isBookChosen.TimeStamp
         }
 
@@ -46,7 +44,7 @@ function PendingReservations(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(variables.API_URL+'Book/pendingreservations').then(response => {
+        fetch(variables.API_URL+'Book/rentals').then(response => {
             return response.json();
         }).then(data => {
             setIsLoading(false);
@@ -57,7 +55,7 @@ function PendingReservations(props) {
     if (props.getAdminUsername() == null) {
         return (
             <section>
-                <h2>Pending Reservations</h2>
+                <h2>Rentals</h2>
                 <p>We are sorry to say that but you need to log in before viewing this content.</p>
             </section>
         )
@@ -66,15 +64,15 @@ function PendingReservations(props) {
     if (isLoading) {
         return (
             <section>
-                <h2>Pending Reservations</h2>
-                <p>All book reservation data is loading. Please wait.</p>
+                <h2>Rentals</h2>
+                <p>All book rentals data is loading. Please wait.</p>
             </section>
         )
     }
 
     return (
         <div>
-            <h2>MyReservations</h2>
+            <h2>Rentals</h2>
             <table className='table table-striped'>
                 <thead>
                     <tr>
@@ -83,7 +81,7 @@ function PendingReservations(props) {
                         <th>Release Date</th>
                         <th>Genre</th>
                         <th>Number of Pages</th>
-                        <th>Reserved Until</th>
+                        <th>Rented Until</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -96,9 +94,9 @@ function PendingReservations(props) {
                                 <td>{book.ReleaseDate}</td>
                                 <td>{book.Genre}</td>
                                 <td>{book.PagesNumber}</td>
-                                <td>{book.ReservedUntil}</td>
+                                <td>{book.LentUntil}</td>
                                 <td>
-                                    <button className="btn btn-light mr-1" onMouseEnter={() => setIsBookChosen(book)} onClick={cancelHanlder}>Cancel</button>
+                                    <button className="btn btn-light mr-1" onMouseEnter={() => setIsBookChosen(book)} onClick={acceptReturnHandler}>Accept Return</button>
                                 </td>
                             </tr>
                         )
@@ -109,4 +107,4 @@ function PendingReservations(props) {
     );
 }
 
-export default PendingReservations;
+export default Rentals;
