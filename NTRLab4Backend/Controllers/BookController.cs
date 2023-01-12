@@ -47,6 +47,18 @@ namespace NTRLab4Backend.Controllers
             return new JsonResult(books);
         }
 
+        [HttpGet("/api/[controller]/pendingreservations/")]
+        public JsonResult PendingReservations()
+        {
+            // @TODO: Add validation
+            var books = from b in _context.Book
+                select b;
+            
+            books = books.Where(b => b.ReservedUntil != null);
+            books = books.Where(b => b.LentUntil == null);
+            return new JsonResult(books);
+        }
+
         [HttpGet("/api/[controller]/myrentals/{Username}")]
         public JsonResult MyRentals(String Username)
         {
