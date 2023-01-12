@@ -109,7 +109,7 @@ function PendingReservations(props) {
 
     return (
         <div>
-            <h2>MyReservations</h2>
+            <h2>Pending Reservations</h2>
             <table className='table table-striped'>
                 <thead>
                     <tr>
