@@ -10,6 +10,8 @@ import MyRentals from './components/user_tabs/MyRentals';
 import MyReservations from './components/user_tabs/MyReservations';
 import UserHome from './components/user_tabs/UserHome';
 import AdminHome from './components/admin_tabs/AdminHome';
+import Rentals from './components/admin_tabs/Rentals';
+import PendingReservations from './components/admin_tabs/PendingReservations';
 import SomethingWentWrong from './components/SomethingWentWrong';
 
 function App() {
@@ -378,8 +380,8 @@ function App() {
             onMyRentalsClick={myRentalsClickHandler} onMyReservationsClick={myReservationsClickHandler}/>
           {tabIsOpen === 'Home' && <AdminHome getAdminUsername={getAdminUsernameHandler}/>}
           {tabIsOpen === 'Library' && <Library getUsername={getUsernameHandler}/>}
-          {tabIsOpen === 'MyReservations' && <MyReservations getUsername={getUsernameHandler}/>}
-          {tabIsOpen === 'MyRentals' && <MyRentals getUsername={getUsernameHandler}/>}
+          {tabIsOpen === 'MyReservations' && <PendingReservations getAdminUsername={getAdminUsernameHandler}/>}
+          {tabIsOpen === 'MyRentals' && <Rentals getAdminUsername={getAdminUsernameHandler}/>}
 
           {/* Modals */}
           {/* @TODO: Extract modal to separate file if time allows */}

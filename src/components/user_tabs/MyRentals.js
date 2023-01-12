@@ -60,7 +60,6 @@ function MyRentals(props) {
                                 <td>{book.PagesNumber}</td>
                                 <td>{book.LentUntil}</td>
                                 <td>
-                                    {/* <button className="btn btn-light mr-1">Details</button> */}
                                     <button className="btn btn-light mr-1">Cancel</button>
                                 </td>
                             </tr>

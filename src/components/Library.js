@@ -74,7 +74,6 @@ function Library(props) {
                             <th>Release Date</th>
                             <th>Genre</th>
                             <th>Number of Pages</th>
-                            {/* <th>Options</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -87,7 +86,6 @@ function Library(props) {
                                     <td>{book.Genre}</td>
                                     <td>{book.PagesNumber}</td>
                                     <td>
-                                        {/* <button className="btn btn-light mr-1">Details</button> */}
                                     </td>
                                 </tr>
                             )
@@ -122,7 +120,6 @@ function Library(props) {
                                 <td>{book.Genre}</td>
                                 <td>{book.PagesNumber}</td>
                                 <td>
-                                    {/* <button className="btn btn-light mr-1">Details</button> */}
                                     <button className="btn btn-light mr-1" onMouseEnter={() => setIsBookChosen(book)} onClick={reserveHanlder}>Reserve</button>
                                 </td>
                             </tr>

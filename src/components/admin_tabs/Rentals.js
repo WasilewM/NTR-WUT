@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import {variables} from '../../Variables.js'
 
+// copy of PendingReservations.js
 
-function MyReservations(props) {
+function PendingReservations(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedBooks, setLoadedBooks] = useState([]);
     const [isBookChosen, setIsBookChosen] = useState(null);
@@ -45,18 +46,18 @@ function MyReservations(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(variables.API_URL+'Book/myreservations/'+props.getUsername()).then(response => {
+        fetch(variables.API_URL+'Book/pendingreservations').then(response => {
             return response.json();
         }).then(data => {
             setIsLoading(false);
             setLoadedBooks(data);
         });
-    }, [props.getUsername()]); // condition to execute useEffect - no dependencies -> this will be executed only once
+    }, [props.getAdminUsername()]); // condition to execute useEffect - no dependencies -> this will be executed only once
 
-    if (props.getUsername() == null) {
+    if (props.getAdminUsername() == null) {
         return (
             <section>
-                <h2>MyReservations</h2>
+                <h2>Pending Reservations</h2>
                 <p>We are sorry to say that but you need to log in before viewing this content.</p>
             </section>
         )
@@ -65,8 +66,8 @@ function MyReservations(props) {
     if (isLoading) {
         return (
             <section>
-                <h2>MyReservations</h2>
-                <p>Your book reservation data is loading. Please wait.</p>
+                <h2>Pending Reservations</h2>
+                <p>All book reservation data is loading. Please wait.</p>
             </section>
         )
     }
@@ -108,4 +109,4 @@ function MyReservations(props) {
     );
 }
 
-export default MyReservations;
+export default PendingReservations;
