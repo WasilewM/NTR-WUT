@@ -48,7 +48,7 @@ namespace NTRLab4Backend.Controllers
             var user = await _context.User
                 .FirstOrDefaultAsync(u => u.Username == credentials.Username);
 
-            if (user != null && user.Password == credentials.Password)
+            if (user != null && user.Password == credentials.Password && user.IsLibrarian == 0)
             {
                 return true;
             }
@@ -56,7 +56,22 @@ namespace NTRLab4Backend.Controllers
             return false;
         }
 
+        [HttpPost]
+        [Route("/api/[controller]/loginasadmin")]
+        public async Task<Boolean> LoginAsAdmin(Credentials credentials)
+            // need to use Credentials class instead of 2 separate String objects, otherwise, the data are not being mapped
+        {
+            // @TODO: Add session guid generation
+            var user = await _context.User
+                .FirstOrDefaultAsync(u => u.Username == credentials.Username);
 
+            if (user != null && user.Password == credentials.Password && user.IsLibrarian == 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         [HttpPut]
         public async Task<Boolean> Put(User User)
