@@ -1,5 +1,8 @@
 # NTR22Z-Wasilewski-Mateusz
 
+## Disclaimer  
+Code available in this repository has been written during NTR (RAD Tools) course at WUT. At univeristy I use GitLab and this repository is only an import of the repo I used during NTR course. 
+
 ## Tasks
 ### LAB 4 (ASP.NET Core WEb API and React)
 Finished code for taks "lab 4" has 2 separate tags due to the fact that frontend and backend have been developen in separete IDEs:
